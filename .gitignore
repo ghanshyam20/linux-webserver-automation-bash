@@ -1,0 +1,5 @@
+backups/
+*.tar.gz
+wordpress/
+logs/
+wp-config.php

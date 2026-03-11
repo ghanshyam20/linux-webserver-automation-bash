@@ -1,19 +1,24 @@
 #!/bin/bash
 
-echo "Updating system..."
-sudo apt update -y
+# Stop script if any command fails
+set -e
 
-echo "Installing Apache..."
-sudo apt install apache2 -y
+echo "Starting full web server deployment..."
 
-echo "Installing MySQL..."
-sudo apt install mysql-server -y
+echo "Step 1: Preparing server..."
+bash prepare_server.sh
 
-echo "Installing PHP..."
-sudo apt install php php-mysql libapache2-mod-php -y
+echo "Step 2: Setting up database..."
+bash setup_database.sh
 
-echo "Restarting services..."
-sudo systemctl restart apache2
-sudo systemctl restart mysql
+echo "Database configured."
 
-echo "LAMP stack installed successfully!"
+echo "Step 3: Installing WordPress..."
+bash install_wordpress.sh
+
+echo "WordPress installed!"
+
+echo "Step 4: Checking services..."
+bash check_services.sh
+
+echo "Deployment completed successfully!"
